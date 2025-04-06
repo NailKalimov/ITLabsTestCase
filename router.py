@@ -43,7 +43,7 @@ def stop_recognition():
 def get_photos_by_date(start_date: str, end_date: str, db: Session = Depends(get_db_session)):
     start = datetime.strptime(start_date, '%Y-%m-%d')
     end = datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
-    photos = db.query(Photo).filter(Photo.created_at.between(start, end)).all()
+    photos = db.query(Photo).filter(Photo.created_at.between(start, end)).limit(10).all()
     return {"photos": [photo.url for photo in photos]}
 
 
